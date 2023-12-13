@@ -1,7 +1,9 @@
-// @ GET /api/users
-const signUp = (req, res) => {
+const usersModel = require("../models/users")
+// @ POST /api/users
+const signUp = async (req, res) => {
     try {
-        res.json({ mess: "Hiii" })
+        const { username, email, password, type } = req.body;
+        console.log(username)
     } catch (err) {
         res.status(404).json(err)
     }
