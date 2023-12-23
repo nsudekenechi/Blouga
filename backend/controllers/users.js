@@ -1,6 +1,7 @@
 const usersModel = require("../models/users")
 const bycrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { model } = require("mongoose");
 const JWTSIGN = (id, type) => {
     const token = jwt.sign({ id, type }, process.env.JWT_TOKEN);
     return token;
@@ -26,7 +27,7 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await usersModel.findOne({ $or: [{ username }, {email: username}] })
+        const user = await usersModel.findOne({ $or: [{ username }, { email: username }] })
         if (!user) throw new Error("User Not Found");
         if (!await bycrypt.compare(password, user.password)) throw new Error("Incorrect Password");
         const token = JWTSIGN(user._id, user.type);
@@ -37,8 +38,6 @@ const login = async (req, res) => {
     }
 
 }
-
-
 
 module.exports = {
     signUp,

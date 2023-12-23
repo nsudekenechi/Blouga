@@ -13,6 +13,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use("/api/users", require("./routers/users"))
 // Specifying routes for blog posts
 app.use("/api/posts", auth, require("./routers/posts"))
+// Specifying routes for blog categories
+app.use("/api/posts/categories", auth, require("./routers/categories"))
 // Connecting to server
 app.listen(port, () => {
     console.log(`http://localhost:${port}`)
