@@ -26,7 +26,7 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await usersModel.findOne({ username })
+        const user = await usersModel.findOne({ $or: [{ username }, {email: username}] })
         if (!user) throw new Error("User Not Found");
         if (!await bycrypt.compare(password, user.password)) throw new Error("Incorrect Password");
         const token = JWTSIGN(user._id, user.type);
