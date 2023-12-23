@@ -23,7 +23,7 @@ const postsModel = new mongoose.Schema({
         default: new Date().toLocaleString("en-us", { dateStyle: "medium" })
     },
 
-    user: String,
+    user: mongoose.Types.ObjectId,
 
 
 })
