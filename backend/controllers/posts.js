@@ -26,9 +26,19 @@ const updatePost = async (req, res) => {
    }
 }
 
- 
+//@desc DELETE /api/posts/:id
+const deletePost = async (req, res) => {
+   try {
+      await model.findByIdAndDelete(req.params.id);
+      res.status(200).json("Deleted")
+   } catch (err) {
+      res.status(400).json(err.message)
+   }
+}
+
 
 module.exports = {
    addPost,
-   updatePost
+   updatePost,
+   deletePost
 }
