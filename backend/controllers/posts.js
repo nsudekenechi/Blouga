@@ -1,5 +1,14 @@
 const express = require("express")
 const model = require("../models/posts")
+// @desc GET /api/posts
+const getPosts = async (req, res) => {
+   try {
+      const posts = await model.find();
+      res.status(201).json(posts);
+   } catch (err) {
+      res.status(400).json(err.message)
+   }
+}
 // @desc CREATE /api/posts 
 const addPost = async (req, res) => {
    try {
@@ -8,7 +17,7 @@ const addPost = async (req, res) => {
       const post = await model.create({ title, subtitle, coverImage, user: req.user })
       res.status(201).json(post);
    } catch (err) {
-      res.status(404).json(err.message)
+      res.status(400).json(err.message)
    }
 
 
@@ -40,5 +49,6 @@ const deletePost = async (req, res) => {
 module.exports = {
    addPost,
    updatePost,
-   deletePost
+   deletePost,
+   getPosts
 }

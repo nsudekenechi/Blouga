@@ -1,17 +1,5 @@
 const mongoose = require("mongoose");
-const generateUserId = () => {
-    let userid = "";
-    let char = "abcdefghijklmnopqrstuvwxyz0123456789"
-    for (i = 1; i <= 6; i++) {
-        userid += char[Math.floor(Math.random() * char.length)]
-    }
-    return userid
-}
 const usersSchema = new mongoose.Schema({
-    userid: {
-        type: String,
-        default: generateUserId()
-    },
     username: {
         type: String,
         required: true,
@@ -27,6 +15,7 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    profilePhoto: String,
     type: {
         type: String,
         required: true,
