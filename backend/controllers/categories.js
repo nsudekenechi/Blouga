@@ -20,9 +20,31 @@ const addCategory = async (req, res) => {
     }
 }
 
-// @desc patch /api/posts/categories /:id
+// @desc patch /api/posts/categories/:id
+const updateCategory = async (req, res) => {
+    try {
 
+        const { name } = req.body;
+        const note = await model.findByIdAndUpdate(req.params.id, { name })
 
+    } catch (err) {
+        res.status(400).json(err.message);
+    }
+}
+
+//@desc delete /api/posts/categories/:id
+const deleteCategory = async (req, res) => {
+    try {
+        const { id } = req.params
+        await model.findByIdAndDelete(id)
+        res.status(201).json("Deleted...")
+    } catch (err) {
+        res.status(400).json(err.message)
+    }
+
+}
 module.exports = {
-    addCategory
+    getCategories,
+    addCategory,
+    updateCategory
 }
