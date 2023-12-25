@@ -26,6 +26,7 @@ const updateCategory = async (req, res) => {
 
         const { name } = req.body;
         const note = await model.findByIdAndUpdate(req.params.id, { name })
+        res.status(201).json(note)
 
     } catch (err) {
         res.status(400).json(err.message);
@@ -46,5 +47,6 @@ const deleteCategory = async (req, res) => {
 module.exports = {
     getCategories,
     addCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }
