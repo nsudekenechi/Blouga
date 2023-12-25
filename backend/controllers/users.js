@@ -40,8 +40,10 @@ const login = async (req, res) => {
 // @desc POST /api/users/admin
 const admin = async (req, res) => {
     try {
-        const user = await usersModel.findByIdAndUpdate(req.user, { type: "admin" })
-        res.status(201).json(user);
+        const user = await usersModel.findById(req.user);
+        if (user.type == "admin") throw new Error("Already an admin")
+        const admin = await usersModel.findByIdAndUpdate(req.user, { type: "admin" })
+        res.status(201).json(admin);
     } catch (err) {
         res.status(400).json(err.message);
     }
