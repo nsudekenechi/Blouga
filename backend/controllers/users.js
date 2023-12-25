@@ -1,12 +1,11 @@
 const usersModel = require("../models/users")
 const bycrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { model } = require("mongoose");
 const JWTSIGN = (id, type) => {
     const token = jwt.sign({ id, type }, process.env.JWT_TOKEN);
     return token;
 }
-// @ POST /api/users
+// @desc POST /api/users
 const signUp = async (req, res) => {
     try {
         const { username, email } = req.body
@@ -38,8 +37,18 @@ const login = async (req, res) => {
     }
 
 }
+// @desc POST /api/users/admin
+const admin = async (req, res) => {
+    try {
+        const user = await usersModel.findByIdAndUpdate(req.user, { type: "admin" })
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json(err.message);
+    }
+}
 
 module.exports = {
     signUp,
-    login
+    login,
+    admin
 }
