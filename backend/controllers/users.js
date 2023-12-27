@@ -26,6 +26,7 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
+        if(!username || !password) throw new Error("All fields are required!")
         const user = await usersModel.findOne({ $or: [{ username }, { email: username }] })
         if (!user) throw new Error("User Not Found");
         if (!await bycrypt.compare(password, user.password)) throw new Error("Incorrect Password");
