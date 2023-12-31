@@ -45,7 +45,7 @@ export const Login = () => {
             </div>
             <span className='text-red-500 text-xs absolute'>{errors?.password?.message}</span>
           </div>
-          <Link to={""} className='opacity-30 hover:opacity-100 text-sm'>Forgot Password</Link>
+          <Link to={"/forgotPassword"} className='opacity-30 hover:opacity-100 text-sm'>Forgot Password</Link>
           <div className='flex flex-col gap-y-3 mt-7'>
             <span className='text-red-500 text-xs'>{customErr}</span>
 

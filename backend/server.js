@@ -18,6 +18,8 @@ app.use("/api/test", (req,res)=>{
 })
 // Specifying the routes for users
 app.use("/api/users", require("./routers/users"))
+// Specifying the routes for forgotpasword 
+app.use("/api/forgotPassword", require("./routers/forgotpassword") )
 // Specifying routes for blog posts
 app.use("/api/posts", auth, authAdmin(), require("./routers/posts"))
 // Specifying routes for blog categories

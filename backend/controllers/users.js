@@ -5,6 +5,7 @@ const JWTSIGN = (id, type) => {
     const token = jwt.sign({ id, type }, process.env.JWT_TOKEN);
     return token;
 }
+
 // @desc POST /api/users
 const signUp = async (req, res) => {
     try {
@@ -26,7 +27,7 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
-        if(!username || !password) throw new Error("All fields are required!")
+        if (!username || !password) throw new Error("All fields are required!")
         const user = await usersModel.findOne({ $or: [{ username }, { email: username }] })
         if (!user) throw new Error("User Not Found");
         if (!await bycrypt.compare(password, user.password)) throw new Error("Incorrect Password");
@@ -49,6 +50,7 @@ const admin = async (req, res) => {
         res.status(400).json(err.message);
     }
 }
+
 
 module.exports = {
     signUp,

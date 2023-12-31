@@ -21,8 +21,23 @@ const authAdmin = () => {
     }
 }
 
+// middleware that validates forgot Password code
+const validateCode = (req, res, next) => {
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(404).json("Code not found")
+    const code = authorization.split(" ")[1];
+    try {
+        const { email } = jwt.verify(code, process.env.JWT_TOKEN)
+        req.email = email
+        next()
+    } catch (err) {
+        res.status(401).json(err.message)
+    }
+}
+
 
 module.exports = {
     auth,
-    authAdmin
+    authAdmin,
+    validateCode
 }
