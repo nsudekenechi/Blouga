@@ -4,11 +4,18 @@ const app = express()
 const DB_Connect = require("./db/db");
 const { auth, authAdmin } = require("./middlewares/auth");
 const port = process.env.PORT || 5001
+const cors = require("cors")
+
 // Connecting to database
 DB_Connect();
+// Allowing CORS
+app.use(cors())
 // Telling the type of data body should accept
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use("/api/test", (req,res)=>{
+    res.json("Hello")
+})
 // Specifying the routes for users
 app.use("/api/users", require("./routers/users"))
 // Specifying routes for blog posts
