@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import { Login } from "../pages/login"
+import {  ForgotPasswordContainer } from "../pages/ForgotPasswordContainer"
+import { PasswordReset } from "../pages/PasswordReset"
 import { ForgotPassword } from "../pages/ForgotPassword"
 export const Routes = createBrowserRouter([
     {
@@ -12,6 +14,16 @@ export const Routes = createBrowserRouter([
     },
     {
         path: "forgotPassword",
-        element: <ForgotPassword />
+        element: <ForgotPasswordContainer />,
+        children: [
+            {
+                path: "",
+                element: <ForgotPassword />
+            },
+            {
+                path: "passwordReset",
+                element: <PasswordReset />
+            }
+        ]
     }
 ]) 

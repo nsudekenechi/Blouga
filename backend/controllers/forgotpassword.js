@@ -23,7 +23,7 @@ const validateUser = async (req, res) => {
         // let code = generatecode()
         // let hashedPassword = await bycrypt.hash(code, 10)
         await schema.create({ code, email })
-        res.status(201).json("Code Created")
+        res.status(201).json(code)
     } catch (err) {
         res.status(404).json(err.message)
     }
