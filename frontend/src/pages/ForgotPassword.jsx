@@ -3,7 +3,7 @@ import { IoFingerPrintSharp } from "react-icons/io5";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 import { useForgotPassword } from '../hooks/auth';
-import * as yup from "yup"
+
 export const ForgotPassword = () => {
     const [email, setEmail] = useState("")
     const { validateEmail, loading, err } = useForgotPassword()

@@ -90,8 +90,12 @@ export const useForgotPassword = () => {
 
     }
 
+    const validateCode = (code) => {
+        console.log(code)
+    }
     return {
         validateEmail,
+        validateCode,
         loading,
         err
     }
