@@ -1,13 +1,14 @@
 import React from 'react'
-import { Logo } from '../components/Logo'
-import { Outlet } from 'react-router-dom';
+import { Logo } from '../../components/Logo'
+import { Link, Outlet } from 'react-router-dom';
 import { useLocation } from "react-router-dom"
+import {BiLeftArrowAlt} from "react-icons/bi"
 export const ForgotPasswordContainer = () => {
   const location = useLocation()
   const steps = [1, 2, 3, 4];
-  const pathNames = ["", "/passwordReset"]
+  const pathNames = ["", "/passwordReset", "/newPassword"]
   const path = location.pathname.split("/forgotPassword")[1]
-  const currentIndex = pathNames.findIndex((item)=> item == path)
+  const currentIndex = pathNames.findIndex((item) => item == path)
 
   return (
     <div className='bg-black min-h-screen ' >
@@ -20,7 +21,11 @@ export const ForgotPasswordContainer = () => {
           </div>
           <div className='py-5 px-5  md:py-10 md:px-20  font-[Ubuntu]'>
             <Outlet />
+            <div className='flex justify-center items-center mt-5'>
+            <Link className='text-sm flex justify-center items-center text-center   rounded-lg  text-white' to={"/login"}><BiLeftArrowAlt size={20} /> Back to login</Link>
           </div>
+          </div>
+         
         </div>
 
         <div className='relative  h-[100vh]'>

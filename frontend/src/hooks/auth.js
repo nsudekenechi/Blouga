@@ -1,4 +1,4 @@
-import { GET, POST } from "../api/api"
+import { GET, POST, UPDATE } from "../api/api"
 import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -20,8 +20,9 @@ export const validateForm = (schema) => {
     const submit = (url, data) => {
         setLoading(true)
         POST(url, data, {}).then(res => {
+            console.log()
             // Storing user results globally
-            setStore({ ...store, user: res })
+            setStore({ ...store, user: res.data })
         }).catch(err => {
             setCustomErr(err.response.data)
             // console.error(err)
@@ -77,15 +78,18 @@ export const useForgotPassword = () => {
         }
         setLoading(true)
         POST("forgotPassword", { email, code: generateCode() }).then(res => {
-            sessionStorage.setItem("forgotPasswordEmail", email)
+            // Creating session for user
+            sessionStorage.setItem("forgotPassword", JSON.stringify({
+                email,
+                auth: ""
+            }))
+            // Moving user to next route
+            navigate("/forgotPassword/passwordReset")
         }).catch(err => {
             console.error(err)
             setErr(err.response.data)
         }).finally(() => {
-            setTimeout(() => {
-                setLoading(false)
-                navigate("passwordReset")
-            }, 100)
+            setLoading(false)
         })
 
     }
@@ -94,7 +98,11 @@ export const useForgotPassword = () => {
 
         setLoading(true)
         POST("forgotPassword/validate", { code }, {}).then(res => {
-            console.log(res)
+            // Storing User's auth
+            let userSession = JSON.parse(sessionStorage.getItem("forgotPassword"))
+            sessionStorage.setItem("forgotPassword", JSON.stringify({ ...userSession, auth: res.data }))
+            // Moving user to next route
+            navigate("/forgotPassword/newPassword")
         }).catch(err => {
             console.error(err)
             setErr(err.response.data)
@@ -104,11 +112,27 @@ export const useForgotPassword = () => {
     }
 
     const resetPassword = (newPassword) => {
-
+        setLoading(true)
+        let { auth } = JSON.parse(sessionStorage.getItem("forgotPassword"))
+        //    Making a POST request to update Password
+        UPDATE("forgotPassword/update", { password:  newPassword }, {
+            headers: {
+                "Authorization": `Bearer ${auth}` ,
+                 "content-type": "application/json"
+            }
+        }).then(res => {
+            console.log(res)
+        }).catch(err => {
+            setErr(err);
+            console.error(err)
+        }).finally(() => {
+            setLoading(false)
+        })
     }
     return {
         validateEmail,
         validateCode,
+        resetPassword,
         loading,
         err
     }

@@ -49,7 +49,7 @@ export const Login = () => {
           <div className='flex flex-col gap-y-3 mt-7'>
             <span className='text-red-500 text-xs'>{customErr}</span>
 
-            <button className=' bg-[#CDB932] text-sm p-3 rounded-md  mb-7'>{loading ? <span className='loading loading-spinner'></span> : "Sign In"}</button>
+            <button className=' bg-[#CDB932] text-sm p-3 rounded-md  mb-7'>{loading ? <span className='loading loading-spinner loading-xs'></span> : "Sign In"}</button>
           </div>
 
           <Link to={""} className='text-xs'>Don't have an account? Sign up</Link>

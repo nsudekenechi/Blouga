@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IoFingerPrintSharp } from "react-icons/io5";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { Link } from 'react-router-dom';
-import { useForgotPassword } from '../hooks/auth';
+import { useForgotPassword } from '../../hooks/auth';
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState("")
@@ -22,7 +22,7 @@ export const ForgotPassword = () => {
                 <span className='text-red-500 text-xs'>{err}</span>
                 <button className=' py-3 bg-white w-[100%] rounded-lg  text-[#CDB932] my-10'>{loading ? <span className='loading loading-spinner '></span> : "Reset Password"}</button>
 
-                <Link className='flex justify-center items-center   w-[100%] rounded-lg  text-white' to={"/login"}><BiLeftArrowAlt size={20} /> Back to login</Link>
+
             </form>
         </>
     )

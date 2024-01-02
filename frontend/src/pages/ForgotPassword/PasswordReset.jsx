@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { LuMailOpen } from "react-icons/lu";
-import { useForgotPassword } from '../hooks/auth';
+import { useForgotPassword } from '../../hooks/auth';
 import { Link } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { motion } from "framer-motion"
@@ -43,7 +43,7 @@ export const PasswordReset = () => {
       <h1 className='text-2xl text-white mt-5 '>Password Reset</h1>
       <p className='text-[#777] text-sm'>We sent a code to <b>nsudekenechi2@gmail.com</b></p>
 
-      <form className='md:pr-10 lg:pr-14' action="" onSubmit={(e) => {
+      <form className='' action="" onSubmit={(e) => {
         e.preventDefault()
         if (code.enteredCode.length == 4) {
           validateCode(code.enteredCode)
@@ -77,9 +77,9 @@ export const PasswordReset = () => {
         <button className=' py-2 bg-white w-[100%] rounded-sm  text-[#000] my-5 relative'>{loading ? <span className='loading loading-spinner  loading-xs'></span> : "Continue"}</button>
         <p className='text-xs text-center text-white'>Didn't receive an email?  <b className='text-[#CDB932] cursor-pointer'>Click to resend</b></p>
 
-        <div className='flex justify-center items-center mt-5'>
+        {/* <div className='flex justify-center items-center mt-5'>
           <Link className='text-sm flex justify-center items-center   rounded-lg  text-white' to={"/login"}><BiLeftArrowAlt size={20} /> Back to login</Link>
-        </div>
+        </div> */}
       </form>
     </>
   )

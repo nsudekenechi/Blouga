@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom"
 import { Login } from "../pages/login"
-import {  ForgotPasswordContainer } from "../pages/ForgotPasswordContainer"
-import { PasswordReset } from "../pages/PasswordReset"
-import { ForgotPassword } from "../pages/ForgotPassword"
+import { ForgotPasswordContainer } from "../pages/ForgotPassword/ForgotPasswordContainer"
+import { PasswordReset } from "../pages/ForgotPassword/PasswordReset"
+import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword"
+import { NewPassword } from "../pages/ForgotPassword/NewPassword"
 export const Routes = createBrowserRouter([
     {
         path: "",
@@ -23,6 +24,10 @@ export const Routes = createBrowserRouter([
             {
                 path: "passwordReset",
                 element: <PasswordReset />
+            },
+            {
+                path: "newPassword",
+                element: <NewPassword />
             }
         ]
     }
