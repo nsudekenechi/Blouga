@@ -77,7 +77,7 @@ export const useForgotPassword = () => {
         }
         setLoading(true)
         POST("forgotPassword", { email, code: generateCode() }).then(res => {
-            console.log(res)
+            sessionStorage.setItem("forgotPasswordEmail", email)
         }).catch(err => {
             console.error(err)
             setErr(err.response.data)
@@ -91,14 +91,7 @@ export const useForgotPassword = () => {
     }
 
     const validateCode = (code) => {
-        // Validating code
-        if (!code) {
-            // setErr("Enter code sent to you")
-            return
-        } else if (code.length != 4) {
-            setErr("All fields are required")
-            return
-        }
+
         setLoading(true)
         POST("forgotPassword/validate", { code }, {}).then(res => {
             console.log(res)
@@ -106,8 +99,12 @@ export const useForgotPassword = () => {
             console.error(err)
             setErr(err.response.data)
         }).finally(() => {
-                setLoading(false)
+            setLoading(false)
         })
+    }
+
+    const resetPassword = (newPassword) => {
+
     }
     return {
         validateEmail,

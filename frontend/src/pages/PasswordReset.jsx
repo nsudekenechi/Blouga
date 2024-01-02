@@ -45,28 +45,26 @@ export const PasswordReset = () => {
 
       <form className='md:pr-10 lg:pr-14' action="" onSubmit={(e) => {
         e.preventDefault()
-        if (code.enteredCode == 4) {
+        if (code.enteredCode.length == 4) {
           validateCode(code.enteredCode)
         } else {
           handleToggleInput()
-
         }
 
       }}>
         <div className='grid grid-cols-4 gap-x-5 pt-10'>
           {
-            code.inputs.map((input, index) => <motion.div className={`  duration-500 border flex justify-center p-5 ${input.value == "" ? "opacity-40" : "opacity-100"}`} key={index}
+            code.inputs.map((input, index) => <motion.div className={`  duration-500  flex justify-center p-5 ${input.value == "" ? "opacity-40" : "opacity-100"}`} key={index}
               initial={{
-                x: "0%"
+                x: "0%",
+                outline: "white solid "
               }}
               animate={{
                 x: toggleInput && [0, -30, 50],
-                border: toggleInput ? "red  solid" : "white solid"
+                outline: toggleInput ? "red  solid " : "white solid "
               }}
               transition={{
                 repeat: "Infinity",
-                // duration: 1,
-                // times: [0, 1]
               }}
             >
               <input type="text" className={`bg-transparent w-[100%] outline-none  text-center text-3xl caret-[#CDB932] text-white`} maxLength={1} name={input.name} onChange={(e) => {
