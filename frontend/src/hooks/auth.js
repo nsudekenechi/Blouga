@@ -91,7 +91,23 @@ export const useForgotPassword = () => {
     }
 
     const validateCode = (code) => {
-        console.log(code)
+        // Validating code
+        if (!code) {
+            // setErr("Enter code sent to you")
+            return
+        } else if (code.length != 4) {
+            setErr("All fields are required")
+            return
+        }
+        setLoading(true)
+        POST("forgotPassword/validate", { code }, {}).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.error(err)
+            setErr(err.response.data)
+        }).finally(() => {
+                setLoading(false)
+        })
     }
     return {
         validateEmail,
