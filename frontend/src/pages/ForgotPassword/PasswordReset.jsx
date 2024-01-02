@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LuMailOpen } from "react-icons/lu";
 import { useForgotPassword } from '../../hooks/auth';
 import { Link } from 'react-router-dom';
@@ -7,12 +7,13 @@ import { motion } from "framer-motion"
 export const PasswordReset = () => {
   const { err, loading, validateCode } = useForgotPassword()
   const [toggleInput, setToggleInput] = useState(false)
+  const { email } = JSON.parse(sessionStorage.getItem("forgotPassword"))
   const [code, setCode] = useState({
     inputs: [
-      { name: "input1", value: "" },
-      { name: "input2", value: "" },
-      { name: "input3", value: "" },
-      { name: "input4", value: "" },
+      { name: "input1", value: "", ref: useRef() },
+      { name: "input2", value: "", ref: useRef() },
+      { name: "input3", value: "", ref: useRef() },
+      { name: "input4", value: "", ref: useRef() },
     ],
     enteredCode: ""
   })
@@ -34,6 +35,18 @@ export const PasswordReset = () => {
       handleToggleInput()
     }
   }, [err])
+  const handleChange = (e, input) => {
+    let exp = /[a-zA-Z\s]/
+    // Allowing only numbers
+    if (!exp.test(e.target.value) && !/[^a-zA-Z0-9]/.test(e.target.value)) {
+      setCode((prev) => ({ ...prev, inputs: code.inputs.map(item => item.name == input.name ? { ...input, value: e.target.value } : item) }))
+
+      // Focusing on next inputs
+      let nextIndex = code.inputs.findIndex(item => item.name == input.name) + 1;
+      if (nextIndex < code.inputs.length && e.target.value != "") code.inputs[nextIndex].ref.current.focus()
+    }
+
+  }
   return (
     <>
       <div className=' w-fit text-white text-xl border border-white p-3 rounded-md'>
@@ -41,7 +54,7 @@ export const PasswordReset = () => {
       </div>
 
       <h1 className='text-2xl text-white mt-5 '>Password Reset</h1>
-      <p className='text-[#777] text-sm'>We sent a code to <b>nsudekenechi2@gmail.com</b></p>
+      <p className='text-[#777] text-sm'>We sent a code to <b>{email}</b></p>
 
       <form className='' action="" onSubmit={(e) => {
         e.preventDefault()
@@ -67,9 +80,8 @@ export const PasswordReset = () => {
                 repeat: "Infinity",
               }}
             >
-              <input type="text" className={`bg-transparent w-[100%] outline-none  text-center text-3xl caret-[#CDB932] text-white`} maxLength={1} name={input.name} onChange={(e) => {
-                setCode((prev) => ({ ...prev, inputs: code.inputs.map(item => item.name == input.name ? { ...input, value: e.target.value } : item) }))
-              }} />
+              <input type="text" className={`bg-transparent w-[100%] outline-none  text-center text-3xl caret-[#CDB932] text-white`}
+                maxLength={1} name={input.name} onChange={(e) => handleChange(e, input)} ref={input.ref} value={input.value} />
             </motion.div>)
           }
         </div>

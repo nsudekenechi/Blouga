@@ -77,20 +77,29 @@ export const useForgotPassword = () => {
             return
         }
         setLoading(true)
-        POST("forgotPassword", { email, code: generateCode() }).then(res => {
-            // Creating session for user
-            sessionStorage.setItem("forgotPassword", JSON.stringify({
-                email,
-                auth: ""
-            }))
-            // Moving user to next route
-            navigate("/forgotPassword/passwordReset")
-        }).catch(err => {
-            console.error(err)
-            setErr(err.response.data)
-        }).finally(() => {
-            setLoading(false)
-        })
+        sessionStorage.setItem("forgotPassword", JSON.stringify({
+            email,
+            auth: ""
+        }))
+        // Moving user to next route
+       
+        navigate("/forgotPassword/passwordReset")
+        // POST("forgotPassword", { email, code: generateCode() }).then(res => {
+        //     // Creating session for user
+        //     sessionStorage.setItem("forgotPassword", JSON.stringify({
+        //         email,
+        //         auth: ""
+        //     }))
+        //     // Moving user to next route
+           
+        //     navigate("/forgotPassword/passwordReset")
+           
+        // }).catch(err => {
+        //     console.error(err)
+        //     setErr(err.response.data)
+        // }).finally(() => {
+        //     setLoading(false)
+        // })
 
     }
 
@@ -103,6 +112,7 @@ export const useForgotPassword = () => {
             sessionStorage.setItem("forgotPassword", JSON.stringify({ ...userSession, auth: res.data }))
             // Moving user to next route
             navigate("/forgotPassword/newPassword")
+            
         }).catch(err => {
             console.error(err)
             setErr(err.response.data)
@@ -115,16 +125,16 @@ export const useForgotPassword = () => {
         setLoading(true)
         let { auth } = JSON.parse(sessionStorage.getItem("forgotPassword"))
         //    Making a POST request to update Password
-        UPDATE("forgotPassword/update", { password:  newPassword }, {
+        UPDATE("forgotPassword/update", { password: newPassword }, {
             headers: {
-                "Authorization": `Bearer ${auth}` ,
-                 "content-type": "application/json"
+                "Authorization": `Bearer ${auth}`,
+                "content-type": "application/json"
             }
         }).then(res => {
-            console.log(res)
+            // Moving user to next route
+            navigate("/forgotPassword/allDone")
         }).catch(err => {
-            setErr(err);
-            console.error(err)
+            setErr(err.message);
         }).finally(() => {
             setLoading(false)
         })

@@ -7,6 +7,7 @@ import { useForgotPassword } from '../../hooks/auth';
 export const ForgotPassword = () => {
     const [email, setEmail] = useState("")
     const { validateEmail, loading, err } = useForgotPassword()
+
     return (
         <>
             <div className='w-fit text-white text-xl border border-white p-3 rounded-md'>
@@ -20,7 +21,7 @@ export const ForgotPassword = () => {
             }} className='py-5 font-[Ubuntu]' >
                 <input type="email" placeholder='Enter your email' className='w-[100%] bg-transparent border-0 border-b outline-none py-3 text-[#CDB932] ' autoComplete='false' onChange={(e) => setEmail(e.target.value)} value={email} />
                 <span className='text-red-500 text-xs'>{err}</span>
-                <button className=' py-3 bg-white w-[100%] rounded-lg  text-[#CDB932] my-10'>{loading ? <span className='loading loading-spinner '></span> : "Reset Password"}</button>
+                <button className=' py-3 bg-white w-[100%] rounded-sm  text-[#CDB932] my-10'>{loading ? <span className='loading loading-spinner '></span> : "Reset Password"}</button>
 
 
             </form>

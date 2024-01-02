@@ -6,8 +6,9 @@ import {BiLeftArrowAlt} from "react-icons/bi"
 export const ForgotPasswordContainer = () => {
   const location = useLocation()
   const steps = [1, 2, 3, 4];
-  const pathNames = ["", "/passwordReset", "/newPassword"]
+  const pathNames = ["", "/passwordReset", "/newPassword","/allDone"]
   const path = location.pathname.split("/forgotPassword")[1]
+  // Using current page route, to select active/current step
   const currentIndex = pathNames.findIndex((item) => item == path)
 
   return (
@@ -21,9 +22,7 @@ export const ForgotPasswordContainer = () => {
           </div>
           <div className='py-5 px-5  md:py-10 md:px-20  font-[Ubuntu]'>
             <Outlet />
-            <div className='flex justify-center items-center mt-5'>
-            <Link className='text-sm flex justify-center items-center text-center   rounded-lg  text-white' to={"/login"}><BiLeftArrowAlt size={20} /> Back to login</Link>
-          </div>
+          
           </div>
          
         </div>

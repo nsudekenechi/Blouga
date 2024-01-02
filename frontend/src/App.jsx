@@ -1,12 +1,13 @@
 import { RouterProvider } from "react-router-dom"
-import { Routes } from "./routes/routes"
+import { Routes } from "./routes/Routes"
 import { Store } from "./store/context"
 import { useState } from "react"
 
 
 function App() {
   const [store, setStore] = useState({
-    user: {}
+    user: {},
+    forgotPassword: {}
   })
   return (
     <>
